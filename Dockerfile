@@ -44,7 +44,7 @@ RUN mkdir "maya_install" && \
 RUN mkdir "mortenstestfolder"
 
 FROM rockylinux:8.5 AS maya
-COPY --from=mayabase usr/autodesk ./
+COPY --from=mayabase usr/autodesk usr/autodesk
 ENV MAYA_LOCATION=/usr/autodesk/maya2023/
 ENV PATH=$MAYA_LOCATION/bin:$PATH
 # Workaround for "Segmentation fault (core dumped)"
