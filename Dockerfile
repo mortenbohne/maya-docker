@@ -39,15 +39,15 @@ COPY Autodesk_Maya_2024_Linux_64bit.tgz maya.tgz
 RUN mkdir "maya_install" && \
     tar -xvf maya.tgz -C /maya_install && \
     rm maya.tgz && \
-    rpm -Uvh /maya_install/Packages/Maya*.rpm && \
+    rpm -ivh /maya_install/Packages/Maya*.rpm && \
     rm -r maya_install
+RUN mkdir "mortenstestfolder"
 
 FROM rockylinux:8.5 AS maya
 COPY --from=mayabase usr/autodesk ./
-ENV MAYA_LOCATION=/usr/autodesk/maya/
+ENV MAYA_LOCATION=/usr/autodesk/maya2023/
 ENV PATH=$MAYA_LOCATION/bin:$PATH
 # Workaround for "Segmentation fault (core dumped)"
 # See https://forums.autodesk.com/t5/maya-general/render-crash-on-linux/m-p/5608552/highlight/true
 ENV MAYA_DISABLE_CIP=1
 ENV DISPLAY :99
-WORKDIR /root
