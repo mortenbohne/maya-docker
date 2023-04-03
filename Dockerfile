@@ -1,39 +1,19 @@
 FROM rockylinux:8.5 AS base
 RUN yum install -y  \
-    libSM  \
-    libICE  \
-    nss \
     libgomp \
     libXpm \
-    libXdamage
-    #missing libprcre16
-RUN yum install -y \
+    libXdamage \
+    freetype \
     mesa-libGLU \
+    libtiff \
     mesa-libGLw \
-    gamin \
-    e2fsprogs-libs \
-    libmng \
-    speech-dispatcher \
-    cups \
-    libpng15
-#     audiofile-devel
-RUN yum install -y \
+    libpng15 \
+    nss \
     libXcomposite \
-    libXScrnSaver \
-    xcb-util \
-    xcb-util-wm \
-    xcb-util-image \
-    xcb-util-keysyms \
-    xcb-util-renderutil \
-    libxkbcommon \
-    libxkbcommon-x11 \
-    libX11
-    # missing cups
-RUN yum install -y \
-    xorg-x11-fonts-ISO8859-1-75dpi \
-    xorg-x11-fonts-ISO8859-1-100dpi \
-    liberation-sans-fonts \
-    liberation-serif-fonts
+    libXtst \
+    alsa-lib-devel \
+    libxkbcommon
+
 RUN yum clean all
 
 
