@@ -43,4 +43,4 @@ ENV XDG_RUNTIME_DIR=/var/tmp/runtime-root
 
 FROM maya-base as maya
 COPY requirements.txt requirements.txt
-RUN mayapy -m p
+RUN mayapy -m pip install -r requirements.txt
