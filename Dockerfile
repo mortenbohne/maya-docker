@@ -49,6 +49,6 @@ ENV MAYA_NO_STANDALONE_ATEXIT=1
 
 FROM maya-base as maya
 
-WORKDIR /cgp_framework
+WORKDIR /maya_docker
 COPY requirements.txt requirements.txt
 RUN mayapy -m pip install -r requirements.txt
