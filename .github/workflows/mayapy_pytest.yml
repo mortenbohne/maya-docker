@@ -13,7 +13,7 @@ jobs:
 
     - name: Install requirements
       run: |
-        pip install -r requirements.txt
+        mayapy -m pip install -r requirements.txt
 
     - name: Run pytest
       run: mayapy -m pytest tests/
