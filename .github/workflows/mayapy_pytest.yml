@@ -8,7 +8,6 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Cache Docker build context
-      id: cache-build
       uses: actions/cache@v2
       with:
         path: |
@@ -19,9 +18,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-build-
 
+    - name: Pull Docker image
+      if: github.ref != 'refs/heads/main'
+      run: docker pull mortenbohne/cgp-maya:latest || true
+
     - name: Build Docker image
-      if: steps.cache-build.outputs.cache-hit != 'true'
-      run: docker build -t cgp-maya .
+      if: github.ref == 'refs/heads/main'
+      run: docker build -t mortenbohne/cgp-maya .
 
     - name: Cache Docker image
       uses: actions/cache@v2
@@ -31,4 +34,4 @@ jobs:
         restore-keys: ${{ runner.os }}-docker-
 
     - name: Run Maya PyTests
-      run: docker run -v ${{ github.workspace }}:/code -w /code cgp-maya mayapy -m pytest tests/
+      run: docker run -v ${{ github.workspace }}:/code -w /code mortenbohne/cgp-maya mayapy -m pytest tests/
