@@ -1,5 +1,6 @@
 name: Maya Pytest
 on: push
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -13,17 +14,16 @@ jobs:
         path: |
           Dockerfile
           requirements.txt
-          code
         key: ${{ runner.os }}-build-${{ hashFiles('Dockerfile','requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-build-
 
     - name: Pull Docker image
-      if: github.ref != 'refs/heads/main'
+      if: steps.check-changes.outputs.changed == 'true'
       run: docker pull mortenbohne/cgp-maya:latest || true
 
     - name: Build Docker image
-      if: github.ref == 'refs/heads/main'
+      if: steps.check-changes.outputs.changed == 'false' || github.ref == 'refs/heads/main'
       run: docker build -t mortenbohne/cgp-maya .
 
     - name: Cache Docker image
@@ -35,3 +35,11 @@ jobs:
 
     - name: Run Maya PyTests
       run: docker run -v ${{ github.workspace }}:/code -w /code mortenbohne/cgp-maya mayapy -m pytest tests/
+
+    - name: Check for changes in Dockerfile and requirements.txt
+      id: check-changes
+      uses: dawidd6/action-check-changed-files@v1.3.1
+      with:
+        files: |
+          Dockerfile
+          requirements.txt
