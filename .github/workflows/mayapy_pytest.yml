@@ -1,7 +1,5 @@
-name: CI
-
-on: [push]
-
+name: Maya Pytest
+on: push
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -9,8 +7,26 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Cache Docker build context
+      uses: actions/cache@v2
+      with:
+        path: |
+          Dockerfile
+          requirements.txt
+          code
+        key: ${{ runner.os }}-build-${{ hashFiles('Dockerfile','requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+
     - name: Build Docker image
       run: docker build -t cgp-maya .
 
+    - name: Cache Docker image
+      uses: actions/cache@v2
+      with:
+        path: /var/lib/docker/image
+        key: ${{ runner.os }}-docker-${{ github.sha }}
+        restore-keys: ${{ runner.os }}-docker-
+
     - name: Run Maya PyTests
-      run: docker run -v ${{ github.workspace }}:/code cgp-maya mayapy -m pytest -k tests
+      run: docker run -v ${{ github.workspace }}:/code -w /code cgp-maya mayapy -m pytest tests/
