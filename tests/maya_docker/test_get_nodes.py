@@ -5,5 +5,5 @@ def test_get_nodes():
     assert len(get_nodes.get_nodes()) > 1
 
 
-def fail_test_nodes():
-    assert len(get_nodes.get_nodes()) == "hello"
+def test_fail():
+    assert True is False
