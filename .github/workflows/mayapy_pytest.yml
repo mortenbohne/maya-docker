@@ -10,7 +10,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker image
-      run: docker build -t myimage .
+      run: docker build -t cgp-maya .
 
     - name: Run Maya PyTests
-      run: docker run -v ${{ github.workspace }}:/. cgp-maya pytest -k tests -p mayapy
+      run: docker run -v ${{ github.workspace }}:/code cgp-maya mayapy -m pytest -k tests
