@@ -31,6 +31,7 @@ COPY --from=maya-install usr/autodesk/maya2023/modules usr/autodesk/maya2023/mod
 COPY --from=maya-install usr/autodesk/maya2023/resources usr/autodesk/maya2023/resources
 COPY --from=maya-install usr/autodesk/maya2023/lib usr/autodesk/maya2023/lib
 COPY --from=maya-install usr/autodesk/maya2023/modules usr/autodesk/maya2023/modules
+RUN true
 COPY --from=maya-install usr/autodesk/maya2023/plugins usr/autodesk/maya2023/plugins
 COPY --from=maya-install usr/autodesk/maya2023/scripts usr/autodesk/maya2023/scripts
 
