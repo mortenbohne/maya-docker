@@ -17,7 +17,7 @@ RUN yum install -y  \
 
 
 FROM base AS maya-install
-ADD https://efulfillment.autodesk.com/NetSWDLD/2023/MAYA/EC4CAAD2-186E-37F3-911B-DDEBDF7486CF/SFX//Autodesk_Maya_2023_3_Update_Linux_64bit.tgz maya.tgz
+ADD https://efulfillment.autodesk.com/NetSWDLD/2024/MAYA/537B71D7-A391-3E25-93C3-9967181B3F34/ESD/Autodesk_Maya_2024_Linux_64bit.tgz maya.tgz
 RUN mkdir "maya_install" && \
     tar -xvf maya.tgz -C /maya_install && \
     rpm -ivh /maya_install/Packages/Maya*.rpm
@@ -25,16 +25,16 @@ RUN mkdir "maya_install" && \
 FROM base AS maya-base
 COPY --from=maya-install usr/autodesk/modules usr/autodesk/modules
 COPY --from=maya-install usr/autodesk/mayausd usr/autodesk/mayausd
-COPY --from=maya-install usr/autodesk/maya2023/bin usr/autodesk/maya2023/bin
-COPY --from=maya-install usr/autodesk/maya2023/libexec usr/autodesk/maya2023/libexec
-COPY --from=maya-install usr/autodesk/maya2023/modules usr/autodesk/maya2023/modules
-COPY --from=maya-install usr/autodesk/maya2023/resources usr/autodesk/maya2023/resources
-COPY --from=maya-install usr/autodesk/maya2023/lib usr/autodesk/maya2023/lib
-COPY --from=maya-install usr/autodesk/maya2023/modules usr/autodesk/maya2023/modules
-COPY --from=maya-install usr/autodesk/maya2023/plugins usr/autodesk/maya2023/plugins
-COPY --from=maya-install usr/autodesk/maya2023/scripts usr/autodesk/maya2023/scripts
+COPY --from=maya-install usr/autodesk/maya2024/bin usr/autodesk/maya2024/bin
+COPY --from=maya-install usr/autodesk/maya2024/libexec usr/autodesk/maya2024/libexec
+COPY --from=maya-install usr/autodesk/maya2024/modules usr/autodesk/maya2024/modules
+COPY --from=maya-install usr/autodesk/maya2024/resources usr/autodesk/maya2024/resources
+COPY --from=maya-install usr/autodesk/maya2024/lib usr/autodesk/maya2024/lib
+COPY --from=maya-install usr/autodesk/maya2024/modules usr/autodesk/maya2024/modules
+COPY --from=maya-install usr/autodesk/maya2024/plugins usr/autodesk/maya2024/plugins
+COPY --from=maya-install usr/autodesk/maya2024/scripts usr/autodesk/maya2024/scripts
 
-ENV MAYA_LOCATION=/usr/autodesk/maya2023/
+ENV MAYA_LOCATION=/usr/autodesk/maya2024/
 ENV PATH=$MAYA_LOCATION/bin:$PATH
 # Workaround for "Segmentation fault (core dumped)"
 # See https://forums.autodesk.com/t5/maya-general/render-crash-on-linux/m-p/5608552/highlight/true
