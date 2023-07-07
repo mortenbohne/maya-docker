@@ -45,10 +45,3 @@ RUN mkdir /var/tmp/runtime-root && \
 ENV XDG_RUNTIME_DIR=/var/tmp/runtime-root
 # avoid error when exiting maya after loading pymel
 ENV MAYA_NO_STANDALONE_ATEXIT=1
-
-
-FROM maya-base as maya
-
-WORKDIR /cgp_framework
-COPY requirements.txt requirements.txt
-RUN mayapy -m pip install -r requirements.txt
