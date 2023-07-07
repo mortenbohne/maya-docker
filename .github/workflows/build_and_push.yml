@@ -27,6 +27,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./path/to/Dockerfile
+          file: Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/your-docker-image:${{ env.BRANCH_NAME }}
+          tags: ghcr.io/${{ github.repository_owner }}/maya-docker:${{ env.BRANCH_NAME }}
