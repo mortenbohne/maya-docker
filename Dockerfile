@@ -1,4 +1,4 @@
-FROM rockylinux:8.5 AS base
+FROM rockylinux:8.6 AS base
 RUN yum install -y  \
     libgomp \
     libXpm \
@@ -12,7 +12,13 @@ RUN yum install -y  \
     libXcomposite \
     libXtst \
     alsa-lib-devel \
-    libxkbcommon && \
+    libxkbcommon \
+    pciutils-libs \
+    xcb-util-wm \
+    xcb-util-image \
+    xcb-util-keysyms \
+    xcb-util-renderutil \
+    libxkbcommon-x11 && \
     yum clean all
 
 
